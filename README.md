@@ -247,11 +247,17 @@ Tests cover: login, registration, creating bugs, editing bugs, dashboard stats.
 
 ## Screenshots
 
-> **Login Page** — Split-panel design with demo account hints  
-> **Dashboard** — Stat cards + Recharts donut/bar charts + recent bugs feed  
-> **Bug List** — Filterable table with search, export CSV, active filter chips  
-> **Bug Detail** — Full metadata, activity timeline, comments, file attachments  
-> **Dark Mode** — Full dark theme across all pages with localStorage persistence
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+*Live stats, interactive Recharts donut/bar charts, and recent bugs feed*
+
+### Bug List
+![Bug List](screenshots/bugs-list.png)
+*Advanced search, multi-filter, active filter chips, CSV export, and pagination*
+
+### Projects
+![Projects](screenshots/projects.png)
+*Project cards with bug count badges and color-coded status indicators*
 
 ---
 
