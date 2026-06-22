@@ -5,7 +5,7 @@ import i18n from "../i18n";
 import api from "../services/api";
 import type { DashboardStats, Bug } from "../types";
 import { Badge } from "../components/ui/Badge";
-import { Spinner } from "../components/ui/Spinner";
+import { DashboardSkeleton } from "../components/ui/Skeleton";
 import { priorityColor, statusColor, formatDate } from "../utils";
 import { useAuth } from "../context/AuthContext";
 import {
@@ -146,7 +146,7 @@ export const DashboardPage = () => {
     load();
   }, []);
 
-  if (loading) return <Spinner />;
+  if (loading) return <DashboardSkeleton />;
 
   const { stats, byStatus, byPriority, bySeverity, byProject } = data!;
 

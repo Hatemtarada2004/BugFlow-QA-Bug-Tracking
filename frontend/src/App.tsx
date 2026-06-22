@@ -10,6 +10,7 @@ import { BugFormPage } from "./pages/bugs/BugFormPage";
 import { ProjectsPage } from "./pages/projects/ProjectsPage";
 import { UsersPage } from "./pages/admin/UsersPage";
 import { Spinner } from "./components/ui/Spinner";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 const ProtectedRoute = ({ children, roles }: { children: React.ReactNode; roles?: string[] }) => {
   const { user, isLoading } = useAuth();
@@ -45,7 +46,7 @@ const AppRoutes = () => {
         />
       </Route>
 
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };

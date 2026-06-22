@@ -5,7 +5,7 @@ import api from "../../services/api";
 import type { Bug, Project } from "../../types";
 import { Badge } from "../../components/ui/Badge";
 import { Button } from "../../components/ui/Button";
-import { Spinner } from "../../components/ui/Spinner";
+import { BugsTableSkeleton } from "../../components/ui/Skeleton";
 import { priorityColor, statusColor, formatDate } from "../../utils";
 import { useAuth } from "../../context/AuthContext";
 
@@ -250,7 +250,7 @@ export const BugsListPage = () => {
       </div>
 
       {/* Table */}
-      {loading ? <Spinner /> : (
+      {loading ? <BugsTableSkeleton /> : (
         <>
           <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
             {bugs.length === 0 ? (

@@ -5,7 +5,7 @@ import api from "../../services/api";
 import type { Bug, ActivityLog, Attachment } from "../../types";
 import { Badge } from "../../components/ui/Badge";
 import { Button } from "../../components/ui/Button";
-import { Spinner } from "../../components/ui/Spinner";
+import { BugDetailSkeleton } from "../../components/ui/Skeleton";
 import { priorityColor, statusColor, severityColor, formatDate } from "../../utils";
 import { useAuth } from "../../context/AuthContext";
 
@@ -83,7 +83,7 @@ export const BugDetailPage = () => {
     setAttachments((prev) => prev.filter((a) => a.id !== attId));
   };
 
-  if (loading) return <Spinner />;
+  if (loading) return <BugDetailSkeleton />;
   if (!bug) return (
     <div className="text-center py-20">
       <p className="text-5xl mb-4">🔍</p>
