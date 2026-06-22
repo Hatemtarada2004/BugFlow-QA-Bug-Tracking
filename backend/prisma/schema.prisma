@@ -1,0 +1,136 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  TESTER
+  DEVELOPER
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum Status {
+  OPEN
+  IN_PROGRESS
+  FIXED
+  CLOSED
+}
+
+enum Severity {
+  TRIVIAL
+  MINOR
+  MAJOR
+  CRITICAL
+  BLOCKER
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(TESTER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  createdBugs   Bug[]         @relation("CreatedBugs")
+  assignedBugs  Bug[]         @relation("AssignedBugs")
+  comments      Comment[]
+  projects      Project[]
+  activityLogs  ActivityLog[]
+  attachments   Attachment[]
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  createdBy   User   @relation(fields: [createdById], references: [id])
+  createdById String
+
+  bugs Bug[]
+}
+
+model Bug {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  priority    Priority @default(MEDIUM)
+  status      Status   @default(OPEN)
+  severity    Severity @default(MAJOR)
+
+  stepsToReproduce String?
+  expectedResult   String?
+  actualResult     String?
+  environment      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  createdBy   User   @relation("CreatedBugs", fields: [createdById], references: [id])
+  createdById String
+
+  assignedTo   User?   @relation("AssignedBugs", fields: [assignedToId], references: [id])
+  assignedToId String?
+
+  comments     Comment[]
+  activityLogs ActivityLog[]
+  attachments  Attachment[]
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+
+  bug    Bug    @relation(fields: [bugId], references: [id], onDelete: Cascade)
+  bugId  String
+
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  action    String
+  detail    String?
+  createdAt DateTime @default(now())
+
+  bug    Bug    @relation(fields: [bugId],  references: [id], onDelete: Cascade)
+  bugId  String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model Attachment {
+  id           String   @id @default(cuid())
+  filename     String
+  originalName String
+  mimeType     String
+  size         Int
+  createdAt    DateTime @default(now())
+
+  bug          Bug    @relation(fields: [bugId],         references: [id], onDelete: Cascade)
+  bugId        String
+
+  uploadedBy   User   @relation(fields: [uploadedById],  references: [id])
+  uploadedById String
+}

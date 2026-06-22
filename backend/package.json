@@ -1,0 +1,45 @@
+{
+  "name": "bugflow-backend",
+  "version": "1.0.0",
+  "description": "BugFlow – QA Bug Tracking API",
+  "main": "dist/app.js",
+  "scripts": {
+    "dev": "nodemon --exec \"ts-node --files\" src/app.ts",
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "ts-node --project tsconfig.seed.json prisma/seed.ts",
+    "db:studio": "prisma studio",
+    "db:generate": "prisma generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.2.0",
+    "nodemailer": "^9.0.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.1.0",
+    "@types/node": "^26.0.0",
+    "@types/nodemailer": "^8.0.1",
+    "eslint": "^10.5.0",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.8.4",
+    "prisma": "^5.22.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  }
+}
